@@ -8,6 +8,22 @@ If you got here because you need to connect to Google App Engine from Google App
 
 This project helps Google Apps Script projects connect to Google APIs which require OAuth2.  It is only intended to be used when invoking services using a [service account][1].  If you are trying to invoke services as the user at keyboard, please consider using [URLFetchApp][2]
 
+This should help you get to this:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var invoker = new OAuth2Invoker(EMAIL, PEM64, 'https://www.googleapis.com/auth/sqlservice.admin');
+var resp = invoker.get('https://www.googleapis.com/sql/v1beta3/projects/' + PROJ_NAME + '/instances');   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Or tis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var invoker = new OAuth2Invoker(EMAIL, PEM64, 'https://www.googleapis.com/auth/sqlservice.admin');
+var resp = invoker.post('https://www.googleapis.com/some/post/service' + PROJ_NAME + '/instances', {
+  myParam:'hello world',
+  myParam2: 'not pretty, but it works'
+});   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 [1]: <https://developers.google.com/accounts/docs/OAuth2ServiceAccount>
 
 [2]: <https://developers.google.com/apps-script/reference/url-fetch/>
