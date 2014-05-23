@@ -28,6 +28,7 @@ You must
 
 2.  Convert the key to a PEM file, then encode it so it can be used within GAS.
 
+3.  Include the GS files in your project (test.gs not required).
 
 
 ### Setting up a Service Account
