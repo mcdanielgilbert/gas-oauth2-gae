@@ -6,7 +6,7 @@ Who Might Need This
 
 If you got here because you need to connect to Google App Engine from Google Apps Script… using OAuth2… AND a Service Account, you are in the right place.  Likewise, if you were attempting to connect go Google Services using URLFetchApp’s built in OAuth handlers and and failed, then you are also in the right place and you have my pity.
 
-![One Does Not Simply...](https://imgflip.com/i/90xdv)
+![One Does Not Simply...](https://i.imgflip.com/90xdv.jpg)
 
 This project helps Google Apps Script projects connect to Google APIs which require OAuth2.  It is only intended to be used when invoking services using a [service account][1].  If you are trying to invoke services as the user at keyboard, please consider using [URLFetchApp][2]
 
