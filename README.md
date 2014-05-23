@@ -17,7 +17,7 @@ var resp = invoker.get('https://www.googleapis.com/sql/v1beta3/projects/' + PROJ
 Or this
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var invoker = new OAuth2Invoker(EMAIL, PEM64, 'https://www.googleapis.com/auth/sqlservice.admin');
-var resp = invoker.post('https://www.googleapis.com/some/post/service' + PROJ_NAME + '/instances', {
+var resp = invoker.post('https://www.googleapis.com/some/post/service/' + PROJ_NAME + '/instances', {
   myParam:'hello world',
   myParam2: 'not pretty, but it works'
 });   
