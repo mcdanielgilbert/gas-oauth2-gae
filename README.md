@@ -102,3 +102,6 @@ var invoker = new OAuth2Invoker(EMAIL, PEM64, 'https://www.googleapis.com/auth/s
 var resp = invoker.get('https://www.googleapis.com/sql/v1beta3/projects/' + PROJ_NAME + '/instances');   
 Logger.log('THE CONTENT: ' + resp.getContentText());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Help!
+If you know a more sane way of doing this, in particular of how to handle the signing of the JWT request token, PLEASE let me know. 
