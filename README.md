@@ -104,4 +104,4 @@ Logger.log('THE CONTENT: ' + resp.getContentText());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Help!
-If you know a more sane way of doing this, in particular of how to handle the signing of the JWT request token, PLEASE let me know. 
+If you know a more sane way of doing this, in particular of how to handle the signing of the JWT request token, PLEASE let me know. Better yet, go star [this issue](https://code.google.com/p/google-apps-script-issues/issues/detail?can=2&start=0&num=100&q=&colspec=Stars%20Opened%20ID%20Type%20Status%20Summary%20Component%20Owner&groupby=&sort=&id=2580)
