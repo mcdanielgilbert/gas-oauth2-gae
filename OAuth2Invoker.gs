@@ -113,7 +113,7 @@ function OAuth2Invoker(email, pemBase64, scope, sub) {
   };
 
   this.getAccessToken = function() {
-    var cachedToken = null; // CacheService.getPrivateCache().get(email+scope);
+    var cachedToken = CacheService.getPrivateCache().get(email+scope);
     if (cachedToken) {
       accessToken = cachedToken;
     } else {
