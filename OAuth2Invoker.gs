@@ -29,7 +29,13 @@ function OAuth2Invoker(email, pemBase64, scope, sub) {
     Logger.log("fetching "+ url);
     //Logger.log(params);
     var response = UrlFetchApp.fetch(url, params);
-    return response;
+    var responseText = response.getContentText('utf-8');
+    
+    try {
+      return JSON.parse(responseText);
+    }catch(Exception){}
+    
+    return responseText;
   };
 
   var encodeURL = function(str) {
