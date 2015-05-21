@@ -62,15 +62,15 @@ function OAuth2Invoker(email, pemBase64, scope, sub) {
     var iat = Math.floor(new Date().getTime() / 1000);
     var exp = iat + 3600; // expire in 1 hour
 
+    if (typeof(scope) == "object"){
+      // got an array, conert it to string
+      scope = scope.join(", ");
+    }
+
     var jwtClaimSet = {
       "iss" : email,
       "scope" : scope,
-      "aud" : "https://accounts.google.com/o/oauth2/token", // this is
-      // always
-      // the value
-      // for
-      // google
-      // tokens
+      "aud" : "https://accounts.google.com/o/oauth2/token", // this is always the value for google tokens
       exp : exp,
       iat : iat
     };
