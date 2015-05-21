@@ -78,12 +78,9 @@ As a sanity check, your service email address should look something like
 From a command prompt (making certain unix-y assumptions).
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-openssl pkcs12 -in YOURPRIVATEKEY.p12 -nodes | openssl rsa | base64 > myfile.pem.b64
+openssl pkcs12 -in YOURPRIVATEKEY.p12 -nodes -passin pass:notasecret 2>/dev/null | openssl rsa 2>/dev/null | base64
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-If you’re using OS X, you may want to just do pipe into `pbcopy` later on when you actually go to paste the key wherever.
 
 
 
@@ -104,6 +101,19 @@ var invoker = new OAuth2Invoker(EMAIL, PEM64, 'https://www.googleapis.com/auth/s
 var resp = invoker.get('https://www.googleapis.com/sql/v1beta3/projects/' + PROJ_NAME + '/instances');   
 Logger.log('THE CONTENT: ' + resp.getContentText());
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Invoking a Google Apps service as a user
+
+To use the service account to impersonate a Google Apps user you have to add your client id and required scopes in the admin panel under Security -> Advanced -> Manage API client access. You can then specify the user email you want to impersonate as the 4th parameter:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var user_email = 'test@example.com';
+var invoker = new OAuth2Invoker(EMAIL, PEM64, 'https://www.googleapis.com/auth/gmail.labels', user_email);
+var resp = invoker.get('https://www.googleapis.com/gmail/v1/users/' + user_email + '/labels');   
+Logger.log('THE CONTENT: ' + resp.getContentText());
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 ### Help!
 If you know a more sane way of doing this, in particular of how to handle the signing of the JWT request token, PLEASE let me know. Better yet, go star [this issue](https://code.google.com/p/google-apps-script-issues/issues/detail?can=2&start=0&num=100&q=&colspec=Stars%20Opened%20ID%20Type%20Status%20Summary%20Component%20Owner&groupby=&sort=&id=2580)
