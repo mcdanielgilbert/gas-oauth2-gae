@@ -52,9 +52,10 @@ function OAuth2Invoker(email, pemBase64, scope, sub) {
    *          base64PEM
    */
   var sign = function(strToSign) {
-    var rsa = new RSAKey();
+    var pem = Utilities.newBlob(Utilities.base64Decode(pemBase64)).getDataAsString();
 
-    var pem = window.atob(pemBase64);
+    var rsa = new RSAKey();
+    
     rsa.readPrivateKeyFromPEMString(pem);
     var hexSig = rsa.signStringWithSHA256(strToSign);
     var sigBase64 = hex2b64(hexSig);
@@ -85,11 +86,11 @@ function OAuth2Invoker(email, pemBase64, scope, sub) {
       jwtClaimSet['sub'] = sub;
     }
 
-    var headerBase64 = window.btoa(JSON.stringify({
+    var headerBase64 = Utilities.base64Encode(JSON.stringify({
       "alg" : "RS256",
       "typ" : "JWT"
     }));
-    var jwtClaimBase64 = window.btoa(JSON.stringify(jwtClaimSet));
+    var jwtClaimBase64 = Utilities.base64Encode(JSON.stringify(jwtClaimSet));
 
     var signedBase64 = sign(headerBase64 + '.' + jwtClaimBase64);
     var assertion = headerBase64 + '.' + jwtClaimBase64 + '.' + signedBase64;
@@ -99,14 +100,15 @@ function OAuth2Invoker(email, pemBase64, scope, sub) {
       'payload' : {
         'grant_type' : "urn:ietf:params:oauth:grant-type:jwt-bearer",
         'assertion' : assertion
-      }
+      },
+      'muteHttpExceptions': true
     });
 
     if (resp.getResponseCode() == 200) {
       var content = JSON.parse(resp.getContentText());
       return content.access_token;
     } else {
-      throw new Error("Failed to retrieve access token.");
+      throw new Error("Failed to retrieve access token (Response Code: "+ resp.getResponseCode() +") response: " +resp.getContentText());
     }
   };
 
