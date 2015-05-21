@@ -112,17 +112,24 @@ function OAuth2Invoker(email, pemBase64, scope, sub) {
     }
   };
 
+  var cache_key = email + scope + (sub ? sub : '');
+    
   this.getAccessToken = function() {
-    var cachedToken = CacheService.getPrivateCache().get(email+scope);
+    var cachedToken = null; 
+    cachedToken = CacheService.getUserCache().get(cache_key);
     if (cachedToken) {
       accessToken = cachedToken;
     } else {
       accessToken = requestAccessToken();
       var fiftyFiveMinutes = 3300;
-      CacheService.getPrivateCache().put(email + scope, accessToken, fiftyFiveMinutes);
+      CacheService.getUserCache().put(cache_key, accessToken, fiftyFiveMinutes);
     }
     Logger.log("got access token: " + accessToken);
     return accessToken;
+  };
+  
+  this.clearCache = function(){
+    CacheService.getUserCache().remove(cache_key);
   };
 
   accessToken = this.getAccessToken();
